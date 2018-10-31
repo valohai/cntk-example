@@ -1,7 +1,13 @@
 ---
 
 - step:
-    name: greet-me
+    name: environment-check
     image: ufoym/deepo:all-py36
     command:
-      - echo hello
+      - pwd
+      - ls -la
+      - nvidia-smi
+      - nvcc --version | grep release
+      - cat /usr/include/x86_64-linux-gnu/cudnn_v*.h | grep CUDNN_MAJOR -A 2
+      - python --version
+      - python -c 'import cntk; print(cntk.__version__); print(cntk.device.all_devices())'
