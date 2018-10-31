@@ -1,0 +1,7 @@
+---
+
+- step:
+    name: greet-me
+    image: ufoym/deepo:all-py36
+    command:
+      - echo hello
