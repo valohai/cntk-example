@@ -4,7 +4,23 @@
     name: run-mock-training
     image: ufoym/deepo:all-py36
     command:
-      - python train.py
+      - python -W ignore train.py {parameters}
+    parameters:
+      - name: minibatch_size
+        pass-as: --minibatch_size={v}
+        description: How many samples to work on for each iteration?
+        type: integer
+        default: 25
+      - name: sample_count
+        pass-as: --sample_count={v}
+        description: Train for how many observations?
+        type: integer
+        default: 500000
+      - name: learning_rate
+        pass-as: --learning_rate={v}
+        description: Training learning rate
+        type: float
+        default: 0.25
 
 - step:
     name: environment-check
@@ -16,4 +32,4 @@
       - nvcc --version | grep release
       - cat /usr/include/x86_64-linux-gnu/cudnn_v*.h | grep CUDNN_MAJOR -A 2
       - python --version
-      - python -c 'import cntk; print(cntk.__version__); print(cntk.device.all_devices())'
+      - python -W ignore -c 'import cntk; print(cntk.__version__); print(cntk.device.all_devices())'
