@@ -1,7 +1,7 @@
 ---
 
 - step:
-    name: run-mock-training
+    name: training-example
     image: ufoym/deepo:all-py36
     command:
       - python -W ignore train.py {parameters}
@@ -21,6 +21,15 @@
         description: Training learning rate
         type: float
         default: 0.25
+
+- step:
+    name: preprocess-example
+    image: ufoym/deepo:all-py36
+    command:
+      - python preprocess.py
+    inputs:
+      - name: my-dataset
+        default: https://valohai-mnist.s3.amazonaws.com/train-images-idx3-ubyte.gz
 
 - step:
     name: environment-check
